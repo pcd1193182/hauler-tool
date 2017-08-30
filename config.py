@@ -7,8 +7,8 @@ import os
 # ------------------------------------------------------
 DEBUG = True
 SECRET_KEY = os.environ['SECRET_KEY']
-PORT = int(os.environ['PORT'])
-HOST = os.environ['HOST']
+PORT = int(os.environ['APP_PORT'])
+HOST = os.environ['APP_HOST']
 
 # -----------------------------------------------------
 # SQL Alchemy configs
