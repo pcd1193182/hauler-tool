@@ -23,11 +23,7 @@ from flask_login import logout_user
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm.exc import NoResultFound
-import requests
-import requests_toolbelt.adapters.appengine
-# Use the App Engine Requests adapter. This makes sure that Requests uses
-# URLFetch.
-requests_toolbelt.adapters.appengine.monkeypatch()
+
 #from OpenSSL import SSL
 #context = SSL.Context(SSL.SLLv23_METHOD)
 #context.useprivatekey
