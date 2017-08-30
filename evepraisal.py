@@ -1,0 +1,131 @@
+import json, requests, math, sys, bisect
+from functools import total_ordering
+
+useBuy = True
+
+@total_ordering
+class item:
+    itemName = ''
+    itemVol = 0.0
+    itemVal = 0.0
+    itemID = 0
+
+    def __str__(self):
+        return "{} {} {:,.2f} {:,.2f}".format(self.itemID, self.itemName, self.itemVol, self.itemVal)
+    def __eq__(self, other):
+        return self.itemID == other.itemID and (self.itemVal / self.itemVol) == (other.itemVal / other.itemVol)
+    def __lt__(self, other):
+        return (self.itemVal / self.itemVol) < (other.itemVal / other.itemVol) or ((self.itemVal / self.itemVol) == (other.itemVal / other.itemVol) and self.itemID == other.itemID)
+
+@total_ordering
+class itemCount:
+    icItem = item()
+    icCount = 0
+
+    def __init__(it, count):
+        icItem = it
+        icCount = count
+    
+    def __eq__(self, other):
+        return self.icItem == other.icItem and self.icCount == other.icCount
+    def __lt__(self, other):
+        return self.val() < other.val() or ((self.val() == other.val()) and self.icItem.itemID == other.icItem.itemID)
+
+    def val(self):
+        return self.icItem.itemVal * self.icCount
+    def size(self):
+        return self.icItem.itemVol * self.icCount
+    def __str__(self):
+        return str(self.icCount) + " of " + str(self.icItem)
+    
+def optimal_sort(x):
+    return x[1].icItem
+def smallest_sort(x):
+    return x[1].icItem.itemVol * -1
+def value_sort(x):
+    return x[1].icItem.itemVal
+def value2_sort(x):
+    return x[1].val()
+
+def parse_evepraisal(url):
+    rawdict=requests.get(url=url).json()
+    mydict={}
+    for thing in rawdict['items']:
+        id = thing['typeID']
+        it = item()
+        it.itemName = thing['name'].encode('utf-8')
+        it.itemVol = thing['typeVolume']
+        if it.itemVol == 0:
+            it.itemVol = 0.000001
+        it.itemVal = thing['prices']['buy' if useBuy else 'sell' ]['max']
+        it.itemID = id
+        if id in mydict:
+            mydict[id].icCount += thing['quantity']
+        else:
+            ic = itemCount()
+            ic.icItem = it
+            ic.icCount = thing['quantity']
+            mydict[id] = ic
+    return mydict
+
+def find_item_list(itemdict, cargo):
+    outlist = []
+    
+    usedCargo = 0.0
+    cargoVal = 0.0
+    totalVal = 0.0
+    for k, v in sorted(itemdict.iteritems(), key=optimal_sort, reverse=True):
+        it = v.icItem
+        count = v.icCount
+        totalVal += it.itemVal * count
+        if usedCargo + it.itemVol * count < cargo:
+            cargoVal += it.itemVal * count
+            usedCargo += it.itemVol * count
+            outlist += itemCount(it, count)
+        elif it.itemVol <= cargo - usedCargo:
+            remaining = cargo - usedCargo
+            canfit = math.floor(remaining/it.itemVol)
+            cargoVal += it.itemVal * canfit
+            usedCargo += it.itemVol * canfit
+            outlist += itemCount(it, canfit)
+        else:
+            continue
+    return outlist
+
+def find_short_item_list(itemdict, cargo, maxitems=12):
+    items = []
+    usedCargo = 0.0
+    for k, v in sorted(itemdict.iteritems(), key=optimal_sort, reverse=True):
+        it = v.icItem
+        usableCount = v.icCount
+        if usedCargo + v.size() > cargo:
+            if usedCargo + it.itemVol > cargo:
+                continue
+            usableCount = math.floor((cargo - usedCargo)/it.itemVol)
+        if len(items) < maxitems:
+            ic2 = itemCount()
+            ic2.icItem = it
+            ic2.icCount = usableCount
+            usedCargo += ic2.size()
+            bisect.insort(items, ic2)
+            continue
+
+        #
+        # If the current thing has higher value than the lowest value in the list,
+        # then we'll replace the current lowest. Recalculate the number we can fit
+        # with the lowest removed.
+        #
+        candidate = items[0]
+        proposedCargo = usedCargo - candidate.size()
+        if proposedCargo + v.size() < cargo:
+            usableCount = v.icCount
+        else:
+            usableCount = math.floor((cargo - proposedCargo)/it.itemVol)
+        newic = itemCount()
+        newic.icItem = v.icItem
+        newic.icCount = usableCount
+        usedCargo += newic.size()
+        bisect.insort(items, newic)
+        removed = items.pop(0)
+        usedCargo -= removed.size()
+    return items
