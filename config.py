@@ -7,7 +7,7 @@ import os
 # ------------------------------------------------------
 DEBUG = True
 SECRET_KEY = os.environ['SECRET_KEY']
-PORT = os.environ['PORT']
+PORT = int(os.environ['PORT'])
 HOST = os.environ['HOST']
 
 # -----------------------------------------------------
