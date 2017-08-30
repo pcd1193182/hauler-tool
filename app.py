@@ -218,7 +218,12 @@ def index():
             character_id=current_user.character_id
         )
         fittings = esiclient.request(op)
-        print fittings
+        if fittings.status != 200:
+            return render_template(error.html, **{
+                'error_code', fittings.status
+            })
+        
+        print fittings.data
 
     return render_template('base.html', **{
         'wallet': 7,
