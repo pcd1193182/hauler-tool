@@ -139,7 +139,7 @@ esiclient = EsiClient(
 def login():
     """ this redirects the user to the EVE SSO login """
     return redirect(esisecurity.get_auth_uri(
-        scopes=['esi-wallet.read_character_wallet.v1']
+        scopes=['esi-fittings.read_fittings.v1', 'esi-fittings.write_fittings.v1']
     ))
 
 
@@ -214,13 +214,14 @@ def index():
         # if the access token need some update
         esisecurity.update_token(current_user.get_sso_data())
 
-        op = esiapp.op['get_characters_character_id_wallet'](
+        op = esiapp.op['get_characters_character_id_fittings'](
             character_id=current_user.character_id
         )
-        wallet = esiclient.request(op)
+        fittings = esiclient.request(op)
+        print fittings
 
     return render_template('base.html', **{
-        'wallet': wallet,
+        'wallet': 7,
     })
 
 
