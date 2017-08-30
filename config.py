@@ -22,7 +22,7 @@ ESI_DATASOURCE = 'tranquility'  # Change it to 'singularity' to use the test ser
 ESI_SWAGGER_JSON = 'https://esi.tech.ccp.is/latest/swagger.json?datasource=%s' % ESI_DATASOURCE
 ESI_SECRET_KEY = os.environ['ESI_SECRET_KEY']  # your secret key
 ESI_CLIENT_ID = os.environ['ESI_CLIENT_ID']  # your client ID
-ESI_CALLBACK = 'https://%s:%d/sso/callback' % (HOST, PORT)  # the callback URI you gave CCP
+ESI_CALLBACK = 'https://%s/sso/callback' % (HOST)  # the callback URI you gave CCP
 ESI_USER_AGENT = 'hauler-packing-tool'
 
 
