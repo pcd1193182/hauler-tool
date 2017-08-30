@@ -45,6 +45,7 @@ logger.addHandler(console)
 # init app and load conf
 app = Flask(__name__)
 app.config.from_object(config)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 # init db
 db = SQLAlchemy(app)
