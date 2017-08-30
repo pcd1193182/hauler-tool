@@ -42,6 +42,8 @@ console.setLevel(logging.DEBUG)
 console.setFormatter(formatter)
 logger.addHandler(console)
 
+print config.ESI_CALLBACK
+
 # init app and load conf
 app = Flask(__name__)
 app.config.from_object(config)
