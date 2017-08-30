@@ -90,6 +90,4 @@ ENV/
 
 app\.db
 
-config\.py
-
 *~
