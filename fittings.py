@@ -3,6 +3,7 @@ from esipy import App
 from esipy import EsiClient
 from esipy.exceptions import APIException
 from collections import OrderedDict
+import json
 
 def process_resp(esiapp, esiclient, resp):
     assert (resp.status == 200)
@@ -18,10 +19,18 @@ def process_resp(esiapp, esiclient, resp):
         
         print resp.data.name
         if resp.data.name in fit_list:
-            fit_list[resp.data.name] += [fit]
+            fit_list[resp.data.name] += [(fit.name, json.dumps(fit)
+                                              .replace(u'<', u'\\u003c')
+                                              .replace(u'>', u'\\u003e')
+                                              .replace(u'&', u'\\u0026')
+                                              .replace(u"'", u'\\u0027'))]
             print "adding " + fit.name
         else:
-            fit_list[resp.data.name] = [fit]
+            fit_list[resp.data.name] = [(fit.name, json.dumps(fit)
+                                              .replace(u'<', u'\\u003c')
+                                              .replace(u'>', u'\\u003e')
+                                              .replace(u'&', u'\\u0026')
+                                              .replace(u"'", u'\\u0027'))]
             print "starting " + fit.name
             
     
