@@ -1,43 +1,8 @@
 import json, requests, math, sys, bisect
-from functools import total_ordering
-
+from item import Item
+from itemCount import ItemCount
 useBuy = True
 
-@total_ordering
-class item:
-    itemName = ''
-    itemVol = 0.0
-    itemVal = 0.0
-    itemID = 0
-
-    def __str__(self):
-        return "{} {} {:,.2f} {:,.2f}".format(self.itemID, self.itemName, self.itemVol, self.itemVal)
-    def __eq__(self, other):
-        return self.itemID == other.itemID and (self.itemVal / self.itemVol) == (other.itemVal / other.itemVol)
-    def __lt__(self, other):
-        return (self.itemVal / self.itemVol) < (other.itemVal / other.itemVol) or ((self.itemVal / self.itemVol) == (other.itemVal / other.itemVol) and self.itemID == other.itemID)
-
-@total_ordering
-class itemCount:
-    icItem = item()
-    icCount = 0
-
-    def __init__(it, count):
-        icItem = it
-        icCount = count
-    
-    def __eq__(self, other):
-        return self.icItem == other.icItem and self.icCount == other.icCount
-    def __lt__(self, other):
-        return self.val() < other.val() or ((self.val() == other.val()) and self.icItem.itemID == other.icItem.itemID)
-
-    def val(self):
-        return self.icItem.itemVal * self.icCount
-    def size(self):
-        return self.icItem.itemVol * self.icCount
-    def __str__(self):
-        return str(self.icCount) + " of " + str(self.icItem)
-    
 def optimal_sort(x):
     return x[1].icItem
 def smallest_sort(x):
@@ -52,7 +17,7 @@ def parse_evepraisal(url):
     mydict={}
     for thing in rawdict['items']:
         id = thing['typeID']
-        it = item()
+        it = Item()
         it.itemName = thing['name'].encode('utf-8')
         it.itemVol = thing['typeVolume']
         if it.itemVol == 0:

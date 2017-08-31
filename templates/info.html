@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!--[if IE]>
+	<meta http-equiv="X-UA-Compatible" content="IE=10">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Harlan Adoudel">
+    
+    <title>Hauler Packing Tool</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css"/>
+  </head>
+  <body>
+    <link rel="stylesheet" type="text/css" href="/static/info.css"/>
+    <script type=text/javascript src="{{ url_for('static', filename='js/info.js') }}"></script>
+    <h3>Select a fitting:</h3>
+    <table border="0">
+      {% for ship in fittings %}
+      <tr class="ShipType">
+	<th>{{ ship.ship_name }} <span>-</span></th>
+      </tr>
+      {% for fitting in ship.fittings %}
+      <tr class="ShipName">
+	<td>{{ fitting.name}}</td>
+      </tr>
+      {% endfor %}
+      <% endfor %>
+    </table>
+  </body>
+</html>

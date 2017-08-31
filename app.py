@@ -24,7 +24,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm.exc import NoResultFound
 
-import json
+#import json
 #from OpenSSL import SSL
 #context = SSL.Context(SSL.SLLv23_METHOD)
 #context.useprivatekey
@@ -32,6 +32,7 @@ import json
 import config
 import logging
 import time
+from fittings import process_resp
 
 # logger stuff
 logger = logging.getLogger(__name__)
@@ -218,17 +219,20 @@ def index():
         op = esiapp.op['get_characters_character_id_fittings'](
             character_id=current_user.character_id
         )
-        fittings = esiclient.request(op)
-        if fittings.status != 200:
-            return render_template(error.html, **{
-                'error_code', fittings.status
+        resp = esiclient.request(op)
+        if resp.status != 200:
+            return render_template('error.html', **{
+                'error_code', resp.status
             })
-        
-        print json.dumps(fittings.data, sort_keys=True, indent=4, separators=(',',': '))
+        #Should return list of ships, each ship contains name & list of resp for that ship
+        fits = process_resp(esiapp, esiclient, resp)
+        return render_template('info.html', **{
+            'resp': fits
+            })
+#        print json.dumps(resp.data, sort_keys=True, indent=4, separators=(',',': '))
 
-    return render_template('base.html', **{
-        'wallet': 7,
-    })
+
+    return render_template('base.html')
 
 
 if __name__ == '__main__':
