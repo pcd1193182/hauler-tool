@@ -202,6 +202,10 @@ def callback():
 
     return redirect(url_for("index"))
 
+@app.route('/gen_fit', methods=['POST'])
+def gen_fit():
+    print request
+    return ('', 204)
 
 # -----------------------------------------------------------------------
 # Index Routes
@@ -234,11 +238,6 @@ def index():
 
 
     return render_template('base.html')
-
-@app.route('/gen_fit', methods=['POST'])
-def index():
-    print request
-    return ('', 204)
 
 if __name__ == '__main__':
     app.run(port=config.PORT, host=config.HOST)

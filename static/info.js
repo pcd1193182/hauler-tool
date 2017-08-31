@@ -17,10 +17,13 @@ $('.ShipName').click(function() {
 });
 
 
-$('#fit_form').validate();
 $('#fit_form').submit(function(ev) {
     ev.preventDefault(); // to stop the form from submitting
     var values = $(this).serialize();
+    if (selected_fit === undefined) {
+	$("error_text").text("Please select fit");
+	return;
+    }
     if ($("evep_url").val() === '') {
 	$("error_text").text("Error, empty url");
 	return;
