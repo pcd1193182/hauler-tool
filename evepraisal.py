@@ -14,7 +14,6 @@ def value2_sort(x):
 
 def parse_evepraisal(url):
     rawdict=requests.get(url=url).json()
-#    print rawdict
     mydict={}
     for thing in rawdict['items']:
         id = thing['typeID']
@@ -25,7 +24,6 @@ def parse_evepraisal(url):
             it.itemVol = 0.000001
         it.itemVal = thing['prices']['buy' if useBuy else 'sell' ]['max']
         it.itemID = id
-        print 'evep: ' + str(it)
         if id in mydict:
             mydict[id].icCount += thing['quantity']
         else:

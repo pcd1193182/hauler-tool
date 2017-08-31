@@ -222,13 +222,10 @@ def gen_fit():
     size = dict['cargo_size']
     print url
     print size
-    print fit
     parsed_items = parse_evepraisal(url)
-    print parsed_items
     optimal_items = find_short_item_list(parsed_items, size, maxitems=255 - len(fit['items']))
     expanded_fit = add_to_cargo(fit, optimal_items)
     expanded_fit = rename_fit(fit, url)
-    print expanded_fit
     esisecurity.update_token(current_user.get_sso_data())
     op = esiapp.op['post_characters_character_id_fittings'](
         character_id = current_user.character_id,

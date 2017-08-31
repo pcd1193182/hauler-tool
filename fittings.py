@@ -26,21 +26,18 @@ def process_resp(esiapp, esiclient, resp):
                                               .replace(u'>', u'\\u003e')
                                               .replace(u'&', u'\\u0026')
                                               .replace(u"'", u'\\u0027'))]
-            print "adding " + fit.name
         else:
             fit_list[resp.data.name] = [(fit.name, json.dumps(fit)
                                               .replace(u'<', u'\\u003c')
                                               .replace(u'>', u'\\u003e')
                                               .replace(u'&', u'\\u0026')
                                               .replace(u"'", u'\\u0027'))]
-            print "starting " + fit.name
             
     
     return OrderedDict(sorted(fit_list.items(), key=lambda t: t[0]))
         
 def add_to_cargo(fit, icList):
     for ic in icList:
-        print 'ic: ' + str(ic)
         newitem = {'flag': 5}
         newitem['type_id'] = ic.icItem.itemID
         newitem['quantity'] = ic.icCount
@@ -48,5 +45,5 @@ def add_to_cargo(fit, icList):
     return fit
 
 def rename_fit(fit, url):
-    fit['name'] = url.rsplit('/')[-1]
+    fit['name'] = fit['name'] + ' | ' + url.rsplit('/')[-1].rsplit('.')[0]
     return fit
