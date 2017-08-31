@@ -228,7 +228,7 @@ def index():
         #Should return list of ships, each ship contains name & list of resp for that ship
         fits = process_resp(esiapp, esiclient, resp)
         return render_template('info.html', **{
-            'resp': fits
+            'fittings': fits
             })
 #        print json.dumps(resp.data, sort_keys=True, indent=4, separators=(',',': '))
 
