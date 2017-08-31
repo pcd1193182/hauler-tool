@@ -19,7 +19,6 @@ $('.ShipName').click(function() {
 
 $('#fit_form').submit(function(ev) {
     ev.preventDefault(); // to stop the form from submitting
-    var values = $(this).serialize();
     if (selected_fit === undefined) {
 	$("#error_text").text("Please select fit");
 	return;
@@ -34,12 +33,15 @@ $('#fit_form').submit(function(ev) {
 	$("#error_text").text("Error, cargo size");
 	return;
     }
-    selected_fit["evep_url"] = evep_url.val();
-    selected_fit["cargo_size"] = cargo_size.val();
+    var values = {
+	'fit': selected_fit,
+	'evep_url' : evep_url.val(),
+	'cargo_size' : cargo_size.val()
+    };
     $.ajax({
 	type: "POST",
 	url: "/gen_fit",
-	data: JSON.stringify(selected_fit),
+	data: JSON.stringify(values),
 	contentType: "application/json; charset=utf-8",
 	dataType: "json",
 	success: function(data) {},
