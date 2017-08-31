@@ -22,17 +22,19 @@ $('#fit_form').submit(function(ev) {
     ev.preventDefault(); // to stop the form from submitting
     if (selected_fit === undefined) {
 	$("#error_text").text("Please select fit");
-	 $("#error_text").text(""); 
+	$("#success_text").text(""); 
 	return;
     }
     var evep_url = $('[name="evep_url"');
     var cargo_size = $('[name="cargo_size"');
     if (evep_url.val() === '') {
 	$("#error_text").text("Error, empty url");
+	$("#success_text").text(""); 
 	return;
     }
     if (cargo_size.val() === '') {
 	$("#error_text").text("Error, cargo size");
+	$("#success_text").text(""); 
 	return;
     }
     var values = {
@@ -47,7 +49,7 @@ $('#fit_form').submit(function(ev) {
 	contentType: "application/json; charset=utf-8",
 	dataType: "json",
 	success: function(data) {$("#success_text").text("Success! " + data.msg); $("#error_text").text(""); console.log("success");},
-	error: function(errMsg) {$("#error_text").text("Error " + errMsg.status + ": " + errMsg.responseText.msg); $("#success_text").text(""); console.log("failure");},
+	error: function(errMsg) {$("#error_text").text("Error " + errMsg.status + ": " + JSON.parse(errMsg.responseText).msg); $("#success_text").text(""); console.log("failure");},
 	complete: function() {console.log("complete");}
     });
 });
