@@ -4,8 +4,8 @@ from esipy import EsiClient
 from esipy.exceptions import APIException
 from collections import OrderedDict
 import json
-import Item
-import ItemCount
+from item import Item
+from itemCount import ItemCount
 
 def process_resp(esiapp, esiclient, resp):
     assert (resp.status == 200)

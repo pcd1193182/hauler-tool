@@ -227,8 +227,8 @@ def gen_fit():
     expanded_fit = rename_fit(fit, url)
     print expanded_fit
     op = esiapp.op['post_characters_character_id_fittings'](
-        character_id=current_user.character_id
-        fitting=expanded_fit
+        character_id = current_user.character_id,
+        fitting = expanded_fit
     )
     resp = esiclient.request(op)
     if resp.status != 200:
