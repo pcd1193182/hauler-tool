@@ -11,4 +11,10 @@ table, th {
 tr.ShipType {
     display: table-row;
     cursor: pointer;
+    float: left;
 }
+tr.ShipName {
+    float: right;
+}
+
+.highlight { background-color: blue; }

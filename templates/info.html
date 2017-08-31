@@ -21,12 +21,21 @@
 	<th>{{ name }} <span>-</span></th>
       </tr>
       {% for fitting in fit_list %}
-      <tr class="ShipName" style="display:none">
+      <tr class="ShipName" style="display:none" data-fit={{fitting}}>
 	<td>{{ fitting.name }}</td>
       </tr>
       {% endfor %}
       {% endfor %}
     </table>
+    <form id="fit_form" action="gen_fit">
+      Evepraisal URL:<br>
+      <input type="text" name="evep_url">
+      <br>
+      Cargo Hold Size (not yet automatically calculated):<br>
+      <input type="text" name="cargo_size">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form> 
     <script src="{{ url_for('static', filename='info.js') }}"></script>
   </body>
 </html>

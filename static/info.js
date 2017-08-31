@@ -1,4 +1,5 @@
 console.log("is this thing on");
+var selected_fit;
 $('.ShipType').click(function(){
     console.log("test");
     $(this).find('span').text(function(_, value){return value=='-'?'+':'-'});
@@ -6,8 +7,14 @@ $('.ShipType').click(function(){
 	return this.style.display === 'table-row' ? 'none' : 'table-row';
     });
 });
-$('tr').click(function() { console.log("test1"); });
-$('th').click(function() { console.log("test2"); });
+$('.ShipName').click(function() {
+    var selected = $(this).hasClass("highlight");
+    $('.ShipName').removeClass("highlight");
+    if(!selected) {
+	selected_fit = this;
+	$(this).addClass("highlight");
+    }
+});
 
 
 $('#fit_form').submit(function(ev) {
