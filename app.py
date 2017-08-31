@@ -229,6 +229,7 @@ def gen_fit():
     expanded_fit = add_to_cargo(fit, optimal_items)
     expanded_fit = rename_fit(fit, url)
     print expanded_fit
+    esisecurity.update_token(current_user.get_sso_data())
     op = esiapp.op['post_characters_character_id_fittings'](
         character_id = current_user.character_id,
         fitting = expanded_fit
