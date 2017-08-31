@@ -16,11 +16,11 @@
     <script type=text/javascript src="{{ url_for('static', filename='js/info.js') }}"></script>
     <h3>Select a fitting:</h3>
     <table border="0">
-      {% for ship in fittings %}
+      {% for name, fittings in fittings %}
       <tr class="ShipType">
-	<th>{{ ship.ship_name }} <span>-</span></th>
+	<th>{{ name }} <span>-</span></th>
       </tr>
-      {% for fitting in ship.fittings %}
+      {% for fitting in fittings %}
       <tr class="ShipName">
 	<td>{{ fitting.name}}</td>
       </tr>
