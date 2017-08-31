@@ -41,7 +41,7 @@ def process_resp(esiapp, esiclient, resp):
 def add_to_cargo(fit, icList):
     for ic in icList:
         print 'ic: ' + str(ic)
-        newitem = {'flags': 5}
+        newitem = {'flag': 5}
         newitem['type_id'] = ic.icItem.itemID
         newitem['quantity'] = ic.icCount
         fit['items'].append(newitem)
