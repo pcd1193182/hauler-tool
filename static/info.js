@@ -10,6 +10,7 @@ $('.ShipType').click(function(){
 $('.ShipName').click(function() {
     var selected = $(this).hasClass("highlight");
     $('.ShipName').removeClass("highlight");
+    selected_fit = null;
     if(!selected) {
 	selected_fit = JSON.parse($(this).attr("data-fit"));
 	$(this).addClass("highlight");
@@ -44,7 +45,7 @@ $('#fit_form').submit(function(ev) {
 	data: JSON.stringify(values),
 	contentType: "application/json; charset=utf-8",
 	dataType: "json",
-	success: function(data) {},
-	failure: function(errMsg) {}
+	success: function(data) {$("#sucess_text").text("Success!"); $("#error_text").text("");},
+	failure: function(errMsg) {$("#error_text").text("Error: " + errMsg); $("#sucess_text").text("");}
     });
 });
