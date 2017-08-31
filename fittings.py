@@ -15,11 +15,8 @@ def process_resp(esiapp, esiclient, resp):
         resp = esiclient.request(op)
         if resp.status != 200:
             raise APIException('', resp.status, resp.data)
+        fit_list.get(resp.data.name, []) += fit
         print resp.data.name
-        if resp.data.name in fit_list:
-            fit_list[resp.data.name] += fit
-        else:
-            fit_list = [fit]
     
     return OrderedDict(sorted(ship_list.items(), key=lambda t: t[0]))
         
