@@ -27,9 +27,7 @@ def parse_evepraisal(url):
         if id in mydict:
             mydict[id].icCount += thing['quantity']
         else:
-            ic = ItemCount()
-            ic.icItem = it
-            ic.icCount = thing['quantity']
+            ic = ItemCount(it, thing['quantity'])
             mydict[id] = ic
     return mydict
 
@@ -68,9 +66,7 @@ def find_short_item_list(itemdict, cargo, maxitems=12):
                 continue
             usableCount = math.floor((cargo - usedCargo)/it.itemVol)
         if len(items) < maxitems:
-            ic2 = ItemCount()
-            ic2.icItem = it
-            ic2.icCount = usableCount
+            ic2 = ItemCount(it, usableCount)
             usedCargo += ic2.size()
             bisect.insort(items, ic2)
             continue
@@ -86,9 +82,7 @@ def find_short_item_list(itemdict, cargo, maxitems=12):
             usableCount = v.icCount
         else:
             usableCount = math.floor((cargo - proposedCargo)/it.itemVol)
-        newic = ItemCount()
-        newic.icItem = v.icItem
-        newic.icCount = usableCount
+        newic = ItemCount(v.icItem, usableCount)
         usedCargo += newic.size()
         bisect.insort(items, newic)
         removed = items.pop(0)
