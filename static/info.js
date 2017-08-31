@@ -24,16 +24,18 @@ $('#fit_form').submit(function(ev) {
 	$("#error_text").text("Please select fit");
 	return;
     }
-    if ($("evep_url").val() === '') {
+    var evep_url = $('[name="evep_url"');
+    var cargo_size = $('[name="cargo_size"');
+    if (evep_url.val() === '') {
 	$("#error_text").text("Error, empty url");
 	return;
     }
-    if ($("cargo_size").val() === '') {
+    if (cargo_size.val() === '') {
 	$("#error_text").text("Error, cargo size");
 	return;
     }
-    selected_fit["evep_url"] = $("evep_url").val();
-    selected_fit["cargo_size"] = $("cargo_size").val();
+    selected_fit["evep_url"] = evep_url.val();
+    selected_fit["cargo_size"] = cargo_size.val();
     $.ajax({
 	type: "POST",
 	url: "/gen_fit",
