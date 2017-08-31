@@ -32,7 +32,8 @@ from sqlalchemy.orm.exc import NoResultFound
 import config
 import logging
 import time
-from fittings import process_resp
+from fittings import process_resp, add_to_cargo, rename_fit
+from evepraisal import parse_evepraisal, find_item_list
 
 # logger stuff
 logger = logging.getLogger(__name__)
@@ -203,10 +204,40 @@ def callback():
     return redirect(url_for("index"))
 
 @app.route('/gen_fit', methods=['POST'])
+@login_required
 def gen_fit():
-    print request
-    print request.get_json()
-    print request.form
+    dict = request.get_json()
+    if dict is None:
+        return ('No data', 400)
+    if not 'fit' in dict:
+        return ('No fit', 400)
+    if not 'evep_url' in dict:
+        return ('No url', 400)
+    if not 'cargo_size' in dict:
+        return ('No size', 400)
+    url = dict['evep_url']
+    fit = dict['fit']
+    size = dict['cargo_size']
+    print url
+    print size
+    print fit
+    parsed_items = parse_evepraisal(url)
+    optimal_items = find_item_list(parsed_items, size)
+    expanded_fit = add_to_cargo(fit, optimal_items)
+    expanded_fit = rename_fit(fit, url)
+    print expanded_fit
+    op = esiapp.op['post_characters_character_id_fittings'](
+        character_id=current_user.character_id
+        fitting=expanded_fit
+    )
+    resp = esiclient.request(op)
+    if resp.status != 200:
+        print resp
+        return render_template('error.html', **{
+            'error_code': resp.status
+        })
+
+    
     return ('', 204)
 
 # -----------------------------------------------------------------------

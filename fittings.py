@@ -4,6 +4,8 @@ from esipy import EsiClient
 from esipy.exceptions import APIException
 from collections import OrderedDict
 import json
+import Item
+import ItemCount
 
 def process_resp(esiapp, esiclient, resp):
     assert (resp.status == 200)
@@ -36,3 +38,14 @@ def process_resp(esiapp, esiclient, resp):
     
     return OrderedDict(sorted(fit_list.items(), key=lambda t: t[0]))
         
+def add_to_cargo(fit, icList):
+    for ic in icList:
+        newitem = {'flags': 5}
+        newitem['type_id'] = ic.icItem.itemID
+        newitem['quantity'] = ic.icCount
+        fit['items'].append(newitem)
+    return fit
+
+def rename_fit(fit, url):
+    fit['name'] = url.rsplit('/')[-1]
+    return fit

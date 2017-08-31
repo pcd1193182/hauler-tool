@@ -46,13 +46,13 @@ def find_item_list(itemdict, cargo):
         if usedCargo + it.itemVol * count < cargo:
             cargoVal += it.itemVal * count
             usedCargo += it.itemVol * count
-            outlist += itemCount(it, count)
+            outlist.append(itemCount(it, count))
         elif it.itemVol <= cargo - usedCargo:
             remaining = cargo - usedCargo
             canfit = math.floor(remaining/it.itemVol)
             cargoVal += it.itemVal * canfit
             usedCargo += it.itemVol * canfit
-            outlist += itemCount(it, canfit)
+            outlist.append(itemCount(it, canfit))
         else:
             continue
     return outlist
