@@ -241,7 +241,7 @@ def gen_fit():
 
     out = { 'msg' : '"' + expanded_fit['name'] + '" created!' }
     print json.dumps(out)
-    return (json.dump(out), 201)
+    return (json.dumps(out), 201)
 
 # -----------------------------------------------------------------------
 # Index Routes
