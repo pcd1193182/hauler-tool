@@ -1,3 +1,6 @@
 .pagetitle {
     color: #800080;
 }
+body {
+    padding-top: 65px;
+}
