@@ -18,7 +18,7 @@ def process_resp(esiapp, esiclient, resp):
         
         print resp.data.name
         if resp.data.name in fit_list:
-            fit_list[resp.data.name] += fit
+            fit_list[resp.data.name] += [fit]
             print "adding " + fit.name
         else:
             fit_list[resp.data.name] = [fit]
