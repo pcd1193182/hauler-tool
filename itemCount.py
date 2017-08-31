@@ -2,12 +2,9 @@ from functools import total_ordering
 from item import Item
 @total_ordering
 class ItemCount:
-    icItem = Item()
-    icCount = 0
-
     def __init__(self, it, count):
-        icItem = it
-        icCount = count
+        self.icItem = it
+        self.icCount = count
         
     def __eq__(self, other):
         return self.icItem == other.icItem and self.icCount == other.icCount
