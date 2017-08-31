@@ -34,6 +34,7 @@ import logging
 import time
 from fittings import process_resp, add_to_cargo, rename_fit
 from evepraisal import parse_evepraisal, find_short_item_list
+from requests.exceptions import ConnectionError, MissingSchema
 
 # logger stuff
 logger = logging.getLogger(__name__)
@@ -220,11 +221,16 @@ def gen_fit():
         url += '.json'
     print dict
     fit = dict['fit']
-    size = dict['cargo_size']
+    try:
+        size = float(dict['cargo_size'])
+    except:
+        out = { 'msg' : 'Invalid size "' + dict['cargo_size'] + '" supplied.'  }
+        return (json.dumps(out), 400)
+        
     try:
         parsed_items = parse_evepraisal(url)
-    except MissingSchema:
-        out = { 'msg' : 'Invalid URL ' + dict['evep_url'] + ' supplied.'  }
+    except (MissingSchema, ConnectionError):
+        out = { 'msg' : 'Invalid URL "' + dict['evep_url'] + '" supplied.'  }
         return (json.dumps(out), 400)
 
     optimal_items = find_short_item_list(parsed_items, size, maxitems=255 - len(fit['items']))
