@@ -216,6 +216,8 @@ def gen_fit():
     if not 'cargo_size' in dict:
         return ('No size', 400)
     url = dict['evep_url']
+    if not url.endswith('.json'):
+        url += '.json'
     fit = dict['fit']
     size = dict['cargo_size']
     print url
