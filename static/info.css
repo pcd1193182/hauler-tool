@@ -1,7 +1,7 @@
 tr, td {
     border: 1px solid black;
     border-collapse: collapse;
-    display: table-row;
+    display: none;
 }
 
 table, th {
