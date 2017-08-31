@@ -222,7 +222,7 @@ def index():
         resp = esiclient.request(op)
         if resp.status != 200:
             return render_template('error.html', **{
-                'error_code', resp.status
+                'error_code': resp.status
             })
         #Should return list of ships, each ship contains name & list of resp for that ship
         fits = process_resp(esiapp, esiclient, resp)
