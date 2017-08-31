@@ -14,7 +14,7 @@ To use the example above, that freighter could have moved a full 7.7 billion isk
 
 ## Technical stuff
 
-The base code for this is shamelessly cribbed from [the esipy + flask example project](https://github.com/Kyria/flask-esipy-example). It's easy enough to set up yourself in heroku, though you need to change a number of settings in config.py, add the postgress hobby-dev addon to the heroku project, and set up your own application through CCP. You could also run it locally with virtualenv.
+The base code for this is shamelessly cribbed from [the esipy + flask example project](https://github.com/Kyria/flask-esipy-example). We also use gunicorn to launch the app in heroku, functools to make some comparison generation automatic, and bootstrap to make it not ugly as sin. It's easy enough to set up yourself in heroku, though you need to change a number of settings in config.py, add the postgress hobby-dev addon to the heroku project, and set up your own application through CCP. You could also run it locally with virtualenv.
 
 ### Future work
 
@@ -22,7 +22,7 @@ There are a number of known issues with this project.
 
 * Currently, the database that stores login tokens will grow until it hits the limit for free postgress databases in heroku, at which point I imagine bad things will happen.
 * It should be possible to automatically calculate the cargo hold size given the fitting imported. For industrials, this would require adding the character skills scope and doing more math.
-* The application is not the ugliest thing in the world, but it's pretty bad. It was created on a bit of a time crunch.
+* The application looks ok, but could definitely use some work. It was created on a bit of a time crunch.
 * There's probably some security issues here somewhere.
 * There's probably a bunch of really bad error handling failures too. There's probably overlap between the two!
 * Probably all of this code is horribly unpythonic, un-javascripty, and generally gross. I'm a C developer, I don't do this "webdev" stuff very often.
