@@ -11,7 +11,7 @@ $('.ShipName').click(function() {
     var selected = $(this).hasClass("highlight");
     $('.ShipName').removeClass("highlight");
     if(!selected) {
-	selected_fit = this;
+	selected_fit = $(this).attr("data-fit");
 	$(this).addClass("highlight");
     }
 });
