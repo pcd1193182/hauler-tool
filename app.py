@@ -221,6 +221,7 @@ def index():
         )
         resp = esiclient.request(op)
         if resp.status != 200:
+            print resp
             return render_template('error.html', **{
                 'error_code': resp.status
             })
