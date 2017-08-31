@@ -12,3 +12,5 @@ tr.ShipType {
     display: table-row;
     cursor: pointer;
 }
+
+.highlight { background-color: blue; }
