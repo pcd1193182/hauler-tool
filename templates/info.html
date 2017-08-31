@@ -13,10 +13,34 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css"/>
   </head>
   <body>
+    
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbar">
+	<ul class="navbar-nav mr-auto">
+	  <li class="nav-item active">
+	    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="https://github.com/pcd1193182/hauler-tool">Github Page</a>
+	  </li>
+	</ul>
+	<ul class="navbar-nav mr-sm-2">
+	  <li class="nav-item active">
+	    <a class="nav-link" href="/logoff">Log Out</a>
+	  </li>
+	</ul>
+      </div>
+    </nav>
+    
     <link rel="stylesheet" type="text/css" href="/static/info.css"/>
     <div class="container">
       <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-4">
 	  <h3>Select a fitting:</h3>
 	  <table border="0">
 	    {% for name, fit_list in fittings.iteritems() %}
@@ -34,10 +58,10 @@
 	<div class="col-md-4">
 	  <form id="fit_form" action="gen_fit">
 	    Evepraisal URL:<br>
-	    <input type="text" name="evep_url" required>
+	    <input type="text" name="evep_url" size="35" required>
 	    <br>
 	    Cargo Hold Size (not yet automatically calculated):<br>
-	    <input type="text" name="cargo_size" required>
+	    <input type="text" name="cargo_size" size="10" required>
 	    <br><br>
 	    <input type="submit" value="Submit">
 	  </form>
