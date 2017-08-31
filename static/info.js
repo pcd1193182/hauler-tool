@@ -1,4 +1,4 @@
-$('tr.ShipType').click(function(){
+$('.ShipType').click(function(){
     console.log("test");
     $(this).find('span').text(function(_, value){return value=='-'?'+':'-'});
     $(this).nextUntil('tr.ShipType').css('display', function(i,v){
