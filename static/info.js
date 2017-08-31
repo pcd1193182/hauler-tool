@@ -7,5 +7,10 @@ $('.ShipType').click(function(){
 //	return this.style.display === 'table-row' ? 'none' : 'table-row';
 //    });
 });
+$('.ShipType').ready(function() {
+    $(this).find('span').text(function(_, value){return value=='-'?'+':'-'});
+    $(this).nextUntil('tr.ShipType').slideToggle(1, function(){
+    });
+});
 $('tr').click(function() { console.log("test1"); });
 $('th').click(function() { console.log("test2"); });
