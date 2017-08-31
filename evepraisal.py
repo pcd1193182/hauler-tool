@@ -1,6 +1,7 @@
 import json, requests, math, sys, bisect
 from item import Item
 from itemCount import ItemCount
+from requests.exceptions import ConnectionError
 useBuy = True
 
 def optimal_sort(x):
@@ -13,7 +14,10 @@ def value2_sort(x):
     return x[1].val()
 
 def parse_evepraisal(url):
-    rawdict=requests.get(url=url).json()
+    resp = requests.get(url=url)
+    if resp.status_code != 200:
+        raise ConnectionError()
+    rawdict=resp.json()
     mydict={}
     for thing in rawdict['items']:
         id = thing['typeID']
