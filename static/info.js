@@ -46,7 +46,7 @@ $('#fit_form').submit(function(ev) {
 	contentType: "application/json; charset=utf-8",
 	dataType: "json",
 	success: function(data) {$("#success_text").text("Success! " + data.msg); $("#error_text").text(""); console.log("success");},
-	error: function(errMsg) {$("#error_text").text("Error: " + errMsg.status + " " + errMsg.statusText); $("#sucess_text").text(""); console.log("failure");},
+	error: function(errMsg) {$("#error_text").text("Error: " + errMsg.status + " " + errMsg.statusText); $("#success_text").text(""); console.log("failure");},
 	complete: function() {console.log("complete");}
     });
 });

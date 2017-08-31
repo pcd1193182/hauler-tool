@@ -218,14 +218,18 @@ def gen_fit():
     url = dict['evep_url']
     if not url.endswith('.json'):
         url += '.json'
+    print dict
     fit = dict['fit']
     size = dict['cargo_size']
-    print url
-    print size
-    parsed_items = parse_evepraisal(url)
+    try:
+        parsed_items = parse_evepraisal(url)
+    except MissingSchema:
+        out = { 'msg' : 'Invalid URL ' + dict['evep_url'] + ' supplied.'  }
+        return (json.dumps(out), 400)
+
     optimal_items = find_short_item_list(parsed_items, size, maxitems=255 - len(fit['items']))
     expanded_fit = add_to_cargo(fit, optimal_items)
-    expanded_fit = rename_fit(fit, url)
+    expanded_fit = rename_fit(fit, dict['evep_url'])
     esisecurity.update_token(current_user.get_sso_data())
     op = esiapp.op['post_characters_character_id_fittings'](
         character_id = current_user.character_id,
@@ -233,14 +237,12 @@ def gen_fit():
     )
     resp = esiclient.request(op)
     if resp.status != 201:
-        print resp
         print resp.status
         return render_template('error.html', **{
             'error_code': resp.status
         })
 
     out = { 'msg' : '"' + expanded_fit['name'] + '" created!' }
-    print json.dumps(out)
     return (json.dumps(out), 201)
 
 # -----------------------------------------------------------------------

@@ -45,5 +45,5 @@ def add_to_cargo(fit, icList):
     return fit
 
 def rename_fit(fit, url):
-    fit['name'] = fit['name'] + ' | ' + url.rsplit('/')[-1].rsplit('.')[0]
+    fit['name'] = fit['name'] + ' | ' + url.rsplit('/')[-1]
     return fit
