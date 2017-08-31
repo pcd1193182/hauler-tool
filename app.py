@@ -232,7 +232,7 @@ def gen_fit():
         fitting = expanded_fit
     )
     resp = esiclient.request(op)
-    if resp.status != 200:
+    if resp.status != 201:
         print resp
         print resp.status
         return render_template('error.html', **{
@@ -240,7 +240,7 @@ def gen_fit():
         })
 
     
-    return ('"' + expanded_fit['name'] + '" created!', 200)
+    return ('"' + expanded_fit['name'] + '" created!', 201)
 
 # -----------------------------------------------------------------------
 # Index Routes
