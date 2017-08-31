@@ -239,8 +239,9 @@ def gen_fit():
             'error_code': resp.status
         })
 
-    
-    return ('"' + expanded_fit['name'] + '" created!', 201)
+    out = { 'msg' : '"' + expanded_fit['name'] + '" created!' }
+    print json.dump(out)
+    return (json.dump(out), 201)
 
 # -----------------------------------------------------------------------
 # Index Routes

@@ -46,6 +46,7 @@ $('#fit_form').submit(function(ev) {
 	contentType: "application/json; charset=utf-8",
 	dataType: "json",
 	success: function(data) {$("#sucess_text").text("Success!"); $("#error_text").text(""); console.log("success");},
-	failure: function(errMsg) {$("#error_text").text("Error: " + errMsg); $("#sucess_text").text(""); console.log("failure");}
+	error: function(errMsg) {$("#error_text").text("Error: " + errMsg); $("#sucess_text").text(""); console.log("failure");},
+	complete: function() {console.log("complete");}
     });
 });
