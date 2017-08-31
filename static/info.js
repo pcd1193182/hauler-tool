@@ -1,3 +1,4 @@
+console.log("is this thing on");
 $('.ShipType').click(function(){
     console.log("test");
     $(this).find('span').text(function(_, value){return value=='-'?'+':'-'});
