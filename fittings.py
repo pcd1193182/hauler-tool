@@ -22,5 +22,5 @@ def process_resp(esiapp, esiclient, resp):
         else:
             fit_list[resp.data.name] = [fit]
     
-    return OrderedDict(sorted(ship_list.items(), key=lambda t: t[0]))
+    return OrderedDict(sorted(fit_list.items(), key=lambda t: t[0]))
         
