@@ -10,7 +10,7 @@ $('.ShipType').click(function(){
 $('.ShipName').click(function() {
     var selected = $(this).hasClass("highlight");
     $('.ShipName').removeClass("highlight");
-    selected_fit = null;
+    selected_fit = undefined;
     if(!selected) {
 	selected_fit = JSON.parse($(this).attr("data-fit"));
 	$(this).addClass("highlight");
