@@ -19,8 +19,11 @@ def process_resp(esiapp, esiclient, resp):
         print resp.data.name
         if resp.data.name in fit_list:
             fit_list[resp.data.name] += fit
+            print "adding " + fit.name
         else:
             fit_list[resp.data.name] = [fit]
+            print "starting " + fit.name
+            
     
     return OrderedDict(sorted(fit_list.items(), key=lambda t: t[0]))
         
