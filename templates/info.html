@@ -13,7 +13,7 @@
   </head>
   <body>
     <link rel="stylesheet" type="text/css" href="/static/info.css"/>
-    <script type=text/javascript src="{{ url_for('static', filename='js/info.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='info.js') }}"></script>
     <h3>Select a fitting:</h3>
     <table border="0">
       {% for name, fit_list in fittings.iteritems() %}
