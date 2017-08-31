@@ -8,7 +8,10 @@ class ItemCount:
     def __init__(it, count):
         icItem = it
         icCount = count
-    
+
+    def __init():
+        
+        
     def __eq__(self, other):
         return self.icItem == other.icItem and self.icCount == other.icCount
     def __lt__(self, other):

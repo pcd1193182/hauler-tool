@@ -27,8 +27,9 @@ def parse_evepraisal(url):
         if id in mydict:
             mydict[id].icCount += thing['quantity']
         else:
-            ic = ItemCount(it, thing['quantity'])
-            mydict[id] = ic
+            print it
+            print thing['quantity']
+            mydict[id] = ItemCount(it, thing['quantity'])
     return mydict
 
 def find_item_list(itemdict, cargo):
