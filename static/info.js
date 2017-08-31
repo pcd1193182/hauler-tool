@@ -21,6 +21,14 @@ $('#fit_form').validate();
 $('#fit_form').submit(function(ev) {
     ev.preventDefault(); // to stop the form from submitting
     var values = $(this).serialize();
+    if ($("evep_url").val() === '') {
+	$("error_text").text("Error, empty url");
+	return;
+    }
+    if ($("cargo_size").val() === '') {
+	$("error_text").text("Error, cargo size");
+	return;
+    }
     selected_fit["evep_url"] = $("evep_url").val();
     selected_fit["cargo_size"] = $("cargo_size").val();
     $.ajax({
