@@ -205,6 +205,8 @@ def callback():
 @app.route('/gen_fit', methods=['POST'])
 def gen_fit():
     print request
+    print request.get_json()
+    print request.form
     return ('', 204)
 
 # -----------------------------------------------------------------------
