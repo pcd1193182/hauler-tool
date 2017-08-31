@@ -14,9 +14,9 @@ class Item:
     def __lt__(self, other):
         myipv = 2**30 if self.itemVol == 0 else self.itemVal / self.itemVol
         if self.itemVol == 0:
-            print self
+            print 'self' + str(self)
         theiripv = 2**30 if self.itemVol == 0 else self.itemVal / self.itemVol
         if other.itemVol == 0:
-            print other
+            print 'other' + str(other)
         return myipv < theiripv or (myipv == theiripv and self.itemID == other.itemID)
 

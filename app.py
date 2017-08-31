@@ -224,6 +224,7 @@ def gen_fit():
     print size
     print fit
     parsed_items = parse_evepraisal(url)
+    print parsed_items
     optimal_items = find_item_list(parsed_items, size)
     expanded_fit = add_to_cargo(fit, optimal_items)
     expanded_fit = rename_fit(fit, url)
