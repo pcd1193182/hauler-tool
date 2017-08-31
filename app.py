@@ -33,7 +33,7 @@ import config
 import logging
 import time
 from fittings import process_resp, add_to_cargo, rename_fit
-from evepraisal import parse_evepraisal, find_item_list
+from evepraisal import parse_evepraisal, find_short_item_list
 
 # logger stuff
 logger = logging.getLogger(__name__)
@@ -225,7 +225,7 @@ def gen_fit():
     print fit
     parsed_items = parse_evepraisal(url)
     print parsed_items
-    optimal_items = find_item_list(parsed_items, size)
+    optimal_items = find_short_item_list(parsed_items, size, maxitems=255 - len(fit['items']))
     expanded_fit = add_to_cargo(fit, optimal_items)
     expanded_fit = rename_fit(fit, url)
     print expanded_fit
