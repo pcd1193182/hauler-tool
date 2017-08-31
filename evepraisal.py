@@ -27,7 +27,7 @@ def parse_evepraisal(url):
         if id in mydict:
             mydict[id].icCount += thing['quantity']
         else:
-            ic = itemCount()
+            ic = ItemCount()
             ic.icItem = it
             ic.icCount = thing['quantity']
             mydict[id] = ic
@@ -46,13 +46,13 @@ def find_item_list(itemdict, cargo):
         if usedCargo + it.itemVol * count < cargo:
             cargoVal += it.itemVal * count
             usedCargo += it.itemVol * count
-            outlist.append(itemCount(it, count))
+            outlist.append(ItemCount(it, count))
         elif it.itemVol <= cargo - usedCargo:
             remaining = cargo - usedCargo
             canfit = math.floor(remaining/it.itemVol)
             cargoVal += it.itemVal * canfit
             usedCargo += it.itemVol * canfit
-            outlist.append(itemCount(it, canfit))
+            outlist.append(ItemCount(it, canfit))
         else:
             continue
     return outlist
@@ -68,7 +68,7 @@ def find_short_item_list(itemdict, cargo, maxitems=12):
                 continue
             usableCount = math.floor((cargo - usedCargo)/it.itemVol)
         if len(items) < maxitems:
-            ic2 = itemCount()
+            ic2 = ItemCount()
             ic2.icItem = it
             ic2.icCount = usableCount
             usedCargo += ic2.size()
@@ -86,7 +86,7 @@ def find_short_item_list(itemdict, cargo, maxitems=12):
             usableCount = v.icCount
         else:
             usableCount = math.floor((cargo - proposedCargo)/it.itemVol)
-        newic = itemCount()
+        newic = ItemCount()
         newic.icItem = v.icItem
         newic.icCount = usableCount
         usedCargo += newic.size()
