@@ -240,7 +240,7 @@ def gen_fit():
         })
 
     out = { 'msg' : '"' + expanded_fit['name'] + '" created!' }
-    print json.dump(out)
+    print json.dumps(out)
     return (json.dump(out), 201)
 
 # -----------------------------------------------------------------------
