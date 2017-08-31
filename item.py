@@ -12,5 +12,11 @@ class Item:
     def __eq__(self, other):
         return self.itemID == other.itemID and (self.itemVal / self.itemVol) == (other.itemVal / other.itemVol)
     def __lt__(self, other):
-        return (self.itemVal / self.itemVol) < (other.itemVal / other.itemVol) or ((self.itemVal / self.itemVol) == (other.itemVal / other.itemVol) and self.itemID == other.itemID)
+        myipv = 2**30 if self.itemVol == 0 else self.itemVal / self.itemVol
+        if self.itemVol == 0:
+            print self
+        theiripv = 2**30 if self.itemVol == 0 else self.itemVal / self.itemVol
+        if other.itemVol == 0:
+            print other
+        return myipv < theiripv or (myipv == theiripv and self.itemID == other.itemID)
 
