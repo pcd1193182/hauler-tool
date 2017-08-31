@@ -219,7 +219,6 @@ def gen_fit():
     url = dict['evep_url']
     if not url.endswith('.json'):
         url += '.json'
-    print dict
     fit = dict['fit']
     try:
         size = float(dict['cargo_size'])
