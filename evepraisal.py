@@ -93,6 +93,7 @@ def find_short_item_list(itemdict, cargo, maxitems=12):
 
     val = 0.0
     for ic in items:
+        print str(ic)
         val += ic.val()
-    print str(maxitems) + " " + str(items) + " " + str(usedCargo) + " " + str(val)
+    print str(maxitems) + " " + str(items) + " " + str(usedCargo) + " " + str(val) + " " + str(len(items))
     return (items, usedCargo, val)
