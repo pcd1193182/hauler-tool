@@ -52,7 +52,7 @@ $('#fit_form').submit(function(ev) {
 	dataType: "json",
 	success: function(data) {
 	    $("#report_text").text("Success: " + data.msg + "\n" +
-				   "Added " + data.count + "unique items worth " + data.val + " isk.");
+				   "Added " + data.count + " unique items worth " + data.val + " isk.");
 	    $("#report_text").css('color', 'blue');
 	},
 	error: function(errMsg) {
