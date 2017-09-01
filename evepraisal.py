@@ -73,7 +73,6 @@ def find_short_item_list(itemdict, cargo, maxitems=12):
             usedCargo += ic2.size()
             bisect.insort(items, ic2)
             continue
-
         #
         # If the current thing has higher value than the lowest value in the list,
         # then we'll replace the current lowest. Recalculate the number we can fit
@@ -93,7 +92,6 @@ def find_short_item_list(itemdict, cargo, maxitems=12):
 
     val = 0.0
     for ic in items:
-        print str(ic)
         val += ic.val()
-    print str(maxitems) + " " + str(items) + " " + str(usedCargo) + " " + str(val) + " " + str(len(items))
+
     return (items, usedCargo, val)
