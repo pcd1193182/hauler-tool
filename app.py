@@ -232,7 +232,7 @@ def gen_fit():
         out = { 'msg' : 'Invalid URL "' + dict['evep_url'] + '" supplied.'  }
         return (json.dumps(out), 400)
 
-    optimal_items = find_short_item_list(parsed_items, size, maxitems=255 - len(fit['items']))
+    (optimal_items, size, val) = find_short_item_list(parsed_items, size, maxitems=255 - len(fit['items']))
     expanded_fit = add_to_cargo(fit, optimal_items)
     expanded_fit = rename_fit(fit, dict['evep_url'])
     esisecurity.update_token(current_user.get_sso_data())
@@ -247,7 +247,12 @@ def gen_fit():
             'error_code': resp.status
         })
 
-    out = { 'msg' : '"' + expanded_fit['name'] + '" created!' }
+    out = {
+        'msg' : '"' + expanded_fit['name'] + '" created!',
+        'count' : len(optimal_items),
+        'size' : size,
+        'val' : val
+    }
     return (json.dumps(out), 201)
 
 # -----------------------------------------------------------------------

@@ -51,7 +51,8 @@ $('#fit_form').submit(function(ev) {
 	contentType: "application/json; charset=utf-8",
 	dataType: "json",
 	success: function(data) {
-	    $("#report_text").text("Success! " + data.msg);
+	    $("#report_text").text("Success: " + data.msg + "\n" +
+				   "Added " + data.count + "unique items worth " + data.val + " isk.");
 	    $("#report_text").css('color', 'blue');
 	},
 	error: function(errMsg) {

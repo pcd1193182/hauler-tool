@@ -90,4 +90,8 @@ def find_short_item_list(itemdict, cargo, maxitems=12):
         bisect.insort(items, newic)
         removed = items.pop(0)
         usedCargo -= removed.size()
-    return items
+
+    val = 0.0
+    for ic in items:
+        val += ic.val()
+    return (items, usedCargo, val)
